@@ -58,7 +58,7 @@ After running for a while we get the following output as shown below, and it con
 * Hashed password
 * The cracked password
 
-[exploited](/assets/images/cracked-password.png)
+![exploited](/assets/images/cracked-password.png)
 
 Now that we have some credentials lets try them out on another service that we found running on the target **ssh**. The command for logging in on ssh using the username and password that we found is: 
 
