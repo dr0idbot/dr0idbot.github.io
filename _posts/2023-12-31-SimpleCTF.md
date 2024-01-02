@@ -46,7 +46,9 @@ We discover a directory _/simple_ that we now visit on the browser and find this
 
 What comes to sight is the version number of the tool that was used to build this website. So I run a quick Google search about its vulnerabilities and possible exploits. It is discovered that CMS Made simple version 2.2.10 and below are vulnerable to SQL Injection. I found a good Python script that can be used to exploit this vulnerability [here](https://gist.github.com/kriss-u/321f0418778697e2ec919f04664ceb4b).
 
-I download the script and try to run it to see its usage:![exploit](/assets/images/exploit.png). After seeing its usage, we can now decide the syntax to use for the exploit to work on the target depending on our needs. so we use the command: 
+I download the script and try to run it to see its usage:![exploit](/assets/images/exploit.png). 
+
+After seeing its usage, we can now decide the syntax to use for the exploit to work on the target depending on our needs. so we use the command: 
 
 ```
 python3 cmsexploit.py -u http://10.10.64.42:80 --crack -w /usr/share/wordlists/rockyou.txt
