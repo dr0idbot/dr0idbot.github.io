@@ -31,7 +31,7 @@ nmap -sV 10.10.64.42
 * Port 80 running http
 * Port 2222 running ssh
 
-Now we try accessing the webpage running on port 80 by pasting the IP and port number (80) for the service on the browser and we are welcomed with this page: ![apache](/assets/images/webiste.png) There is not much going on here so I decide to brute force the target's website to see if I can find otther webpages that might be helpful in this quest. For this, I use [Gobuster](https://en.wikipedia.org/wiki/Gobuster) using this command:
+Now we try accessing the webpage running on port 80 by pasting the IP and port number (80) for the service on the browser and we are welcomed with this page: ![apache](/assets/images/website.png) There is not much going on here so I decide to brute force the target's website to see if I can find otther webpages that might be helpful in this quest. For this, I use [Gobuster](https://en.wikipedia.org/wiki/Gobuster) using this command:
 
 ```
 gobuster dir -u http://10.10.64.42:80 -w /usr/share/wordlists/directory-list-2.3-small.txt
