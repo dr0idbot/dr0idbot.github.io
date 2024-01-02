@@ -1,4 +1,5 @@
 ---
+icon: fas fa-info-circle
 title: Portfolio
 ---
 
