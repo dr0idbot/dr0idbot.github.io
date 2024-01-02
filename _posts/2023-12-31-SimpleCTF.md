@@ -16,6 +16,7 @@ _Disclaimer: The content presented in this article is for educational purposes o
 
 ### SimpleCTF Challenge.
 After clicking the start machine icon on the challenge webpage, you are presented with an IP of the vulnerable target, the first thing I normally do is to ping the target just to see if it is alive. ![ping_results](/assets/images/Ping.png)
+
 Since we have replies from the target we will now proceed to the next step of exploration.
 
 ### Observations & Findings
