@@ -1,28 +1,25 @@
 #  The contact options.
-
 - type: github
   icon: "fab fa-github"
-
+  noblank: false # open link in current tab
+  url:  'https://github.com/Papa-B3ar/'
+  
 - type: twitter
-  icon: "fa-brands fa-x-twitter"
-
+  icon: "fab fa-twitter"
+  noblank: false # open link in current tab
+  url:  'https://twitter.com/_Papa_B3ar_'
+  
 - type: email
   icon: "fas fa-envelope"
-  noblank: true # open link in current tab
+  noblank: false # open link in current tab
+  url:  'samykat46@gmail.com'
+  
+- type: linkedin
+  icon: 'fab fa-linkedin'
+  noblank: false # open link in current tab
+  url:  'https://www.linkedin.com/in/samuel-katana-2495021a2/'
 
-- type: rss
-  icon: "fas fa-rss"
-  noblank: true
-# Uncomment and complete the url below to enable more contact options
-#
-# - type: mastodon
-#   icon: 'fab fa-mastodon'   # icons powered by <https://fontawesome.com/>
-#   url:  ''                  # Fill with your Mastodon account page, rel="me" will be applied for verification
-#
-# - type: linkedin
-#   icon: 'fab fa-linkedin'   # icons powered by <https://fontawesome.com/>
-#   url:  ''                  # Fill with your Linkedin homepage
-#
-# - type: stack-overflow
-#   icon: 'fab fa-stack-overflow'
-#   url:  ''                  # Fill with your stackoverflow homepage
+- type: facebook
+  icon: 'fab fa-facebook'
+  noblank: false # open link in current tab
+  url:  'https://www.facebook.com/samuel.gona.92/'
