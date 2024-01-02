@@ -26,7 +26,9 @@ We begin by scanning the target using the tool [Nmap](https://en.wikipedia.org/w
 nmap -sV 10.10.64.42
 
 ```
-**Note** If you're following through the tutorial, make sure you use the target's machine's IP provided once you click the start machine icon on the challenge webpage. Here are the results from our scan.![nmap_results](/assets/images/nmap.png) Notice that we have three open ports.
+**Note** If you're following through the tutorial, make sure you use the target's machine's IP provided once you click the start machine icon on the challenge webpage. Here are the results from our scan.![nmap_results](/assets/images/nmap.png) 
+
+Notice that we have three open ports.
 
 * Port 22 running ftp
 * Port 80 running HTTP
