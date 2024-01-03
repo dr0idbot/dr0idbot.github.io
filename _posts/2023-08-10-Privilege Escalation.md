@@ -211,4 +211,4 @@ In summary, this challenge underscores the significance of privilege escalation 
 
 Remember, relentless learning and exploration are paramount to mastering hacking skills. Embrace the journey, and let the quest for knowledge fuel your hacking endeavors.
 
-PapaB3ar signing off.
+dr0idbot signing off.
