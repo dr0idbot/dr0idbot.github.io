@@ -82,6 +82,7 @@ ssh mitch@10.10.64.42 -p2222
 
 ```
 Then type yes and accept to proceed and provide the acquired password. A successful login should land you at a terminal like this:
+
 ![ssh_login](/assets/images/ssh_login.png)
 
 
