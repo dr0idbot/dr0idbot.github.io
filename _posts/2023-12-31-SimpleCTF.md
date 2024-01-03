@@ -88,6 +88,7 @@ Then type yes and accept to proceed and provide the acquired password. A success
 
 ### Solution/Flag
 Now that we are logged in as Mitch I try to list the contents of his home directory and voila, we capture our first flag which is in the user.txt file.
+
 ![userflag](/assets/images/userflag.png)
 
 I then try to go back to see if there is any other user on this machine and if I have access to their directory. I found another user **sunbath** but have no access to his directory. I moved back to another directory and tried to gain access to the root's directory but again, I hit a wall. 
