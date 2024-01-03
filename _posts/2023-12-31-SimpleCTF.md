@@ -101,7 +101,10 @@ sudo -l
 
 ```
 to see what permissions Mitch has or what he can run as root without having to provide a password. The results: 
-![rootshell](/assets/images/rootshell.png) We gain access to the root shell after  finding out that he can access vim as root. To find the custom command to cater to your needs use [this](https://gtfobins.github.io/) website. Now that we're root, let's confirm that and see if we have access to the root's directory. 
+![rootshell](/assets/images/rootshell.png) 
+
+We gain access to the root shell after  finding out that he can access vim as root. To find the custom command to cater to your needs use [this](https://gtfobins.github.io/) website. Now that we're root, let's confirm that and see if we have access to the root's directory. 
+
 ![rootflag](/assets/images/rootflag.png)
 
 ### Conclusion
