@@ -17,7 +17,7 @@ weight: 1       # You can add weight to some posts to override the default sorti
 ---
 ## Do not Start a fight, you cannot stop it
 
-As promised in my [Welcome Blog](https://www.samuelkatanas.live/p/welcome-Blog/), I have started documenting my journey in cybersecurity, especially about the things I learn through [Capture The Flag](https://en.wikipedia.org/wiki/Capture_the_flag_(cybersecurity)) challenges. In this blog post, I will walk you through a challenge I came across and managed to solve on CyberTalents. Tag along, let's dive into it.
+As promised in my [Welcome Blog](https://www.samuelkatanas.live/p/welcome-blog/), I have started documenting my journey in cybersecurity, especially about the things I learn through [Capture The Flag](https://en.wikipedia.org/wiki/Capture_the_flag_(cybersecurity)) challenges. In this blog post, I will walk you through a challenge I came across and managed to solve on CyberTalents. Tag along, let's dive into it.
 
 _Disclaimer: The content presented in this article is for educational purposes only and does not endorse or encourage any form of unauthorized access or malicious activity._
 
