@@ -2,7 +2,7 @@
 title: SimpleCTF
 description: Beginner Level CTF
 date: 2023-12-31 00:00:00+0000
-image: Banner.jpg
+image: Banner.png
 tags:
     - TryHackMe
     - Privilege Escalation
