@@ -1,150 +1,56 @@
 ---
-title: Markdown Syntax Guide
-date: 2023-09-07
-description: Sample article showcasing basic Markdown syntax and formatting for HTML elements.
+title: Keep it Simple
+date: 2023-06-21
+description: The answer is simple
+image: The eye.jpg
 tags: 
-    - markdown
-    - css
-    - html
-    - themes
+    - CyberTalents
+    - Digital Forensics
+    - diff
+    - exiftool
 categories:
-    - themes
-    - syntax
+    - Digital Forensics
+    - Easy
+    - CyberTalents
 ---
 
-This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.
+### Introduction
+Welcome to another exciting journey into the world of Cybersec and its mysteries! In this blog post, we'll explore a captivating gamified challenge in the field of Digital Forensics. Join me as we dive into the intriguing world of [Capture The Flag](https://en.wikipedia.org/wiki/Capture_the_flag_(cybersecurity)) and unravel the secrets behind the challenge titled 'Keep it Simple.' This challenge is part of the **Introduction to Cybersecurity (Online)** series that I have been looking into over the past few days and can be found [here](https://cybertalents.com/challenges/forensics/keep-it-simple).
 
-<!--more-->
+_Disclaimer: The content presented in this article is for educational purposes only and does not endorse or encourage any form of unauthorized access or malicious activity._
 
-## Headings
+### Unveiling the Enigma: Keep it Simple Challenge.
 
-The following HTML `<h1>`—`<h6>` elements represent six levels of section headings. `<h1>` is the highest section level while `<h6>` is the lowest.
+The challenge description had the string: _The answer is simple_(as you will see, it truly is simple). The more one can gather from here is that it's a Digital Forensics challenge titled: *Keep it simple* Upon clicking the green "Start Challenge" button, I was presented with a link to a webpage that looks like this:
 
-# H1
-## H2
-### H3
-#### H4
-##### H5
-###### H6
+![login page](KeepitSimple.jpg)
 
-## Paragraph
+### Observations & Findings
 
-Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui voluptate ma dolestendit peritin re plis aut quas inctum laceat est volestemque commosa as cus endigna tectur, offic to cor sequas etum rerum idem sintibus eiur? Quianimin porecus evelectur, cum que nis nust voloribus ratem aut omnimi, sitatur? Quiatem. Nam, omnis sum am facea corem alique molestrunt et eos evelece arcillit ut aut eos eos nus, sin conecerem erum fuga. Ri oditatquam, ad quibus unda veliamenimin cusam et facea ipsamus es exerum sitate dolores editium rerore eost, temped molorro ratiae volorro te reribus dolorer sperchicium faceata tiustia prat.
+As usual, the first thing I always try to do with these challenges, is to inspect the page where its hosted for hints or clues on how to proceed with an attempt. The trick is to be as keen as you can when doing this so as not to miss on any breadcrumbs :D. At first glance, the webpage source code looks normal but on taking a closer look you notice a reference to two images with only one being embedded on the webpage. My curiosity kicked in:
 
-Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sapicia is sinveli squiatum, core et que aut hariosam ex eat.
+![Code inspection](KeepitSimple0.jpg)
 
-## Blockquotes
+So I downloaded both the images, to get a closer look and see if there is something out of the ordinary about them. The first image that was embedded on the webpage I saved as is, that is *the_eye.jpeg* and image two (hidden hint in source code) saved as *the_eye0.jpeg*. Again at first glance, everything about this images looks the same, from file size, dimensions of the image and most obviously their outlook. So we have to use  the eye of a thief, to see what others dont. Here is a glimpse of both the images:
 
-The blockquote element represents content that is quoted from another source, optionally with a citation which must be within a `footer` or `cite` element, and optionally with in-line changes such as annotations and abbreviations.
+![Images in code](KeepitSimple1.jpg)
 
-### Blockquote without attribution
+Next, I decide to compare the images using [diff](https://www.geeksforgeeks.org/diff-command-linux-examples/) command from the terminal to compare if the images are actually the same or not. Here is the output from the comparison:
 
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.
-> **Note** that you can use *Markdown syntax* within a blockquote.
+![diff output](KeepitSimple2.jpg)
 
-### Blockquote with attribution
+We are seeing here that the two files actually differ, which makes me more curious and I therefore decide to look at the images [metadata](https://iptc.org/standards/photo-metadata/photo-metadata/) using the [exiftool](https://en.wikipedia.org/wiki/ExifTool) and here out attention is drawn to the difference of the two images that we normally wouldnt have seen from just looking at the pictures.
 
-> Don't communicate by sharing memory, share memory by communicating.<br>
-> — <cite>Rob Pike[^1]</cite>
+**I try as much as I can to link additional information on new terms and tools used in the blog check them out to learn more.**
 
-[^1]: The above quote is excerpted from Rob Pike's [talk](https://www.youtube.com/watch?v=PAAkCSZUG1c) during Gopherfest, November 18, 2015.
+### Solution/Flag
 
-## Tables
+To look at the metadata of both the images we type the command *exiftool* followed by the filename. See the image below for output comparison.
 
-Tables aren't part of the core Markdown spec, but Hugo supports supports them out-of-the-box.
+![Flag](KeepitSimple33.png).
 
-   Name | Age
---------|------
-    Bob | 27
-  Alice | 23
+**Kudos!!** We now captured the flag.I have obfuscated the flag to keep the integrity of the challenge.
 
-### Inline Markdown within tables
+### Conclusion
 
-| Italics   | Bold     | Code   |
-| --------  | -------- | ------ |
-| *italics* | **bold** | `code` |
-
-| A                                                        | B                                                                                                             | C                                                                                                                                    | D                                                 | E                                                          | F                                                                    |
-|----------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------|------------------------------------------------------------|----------------------------------------------------------------------|
-| Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Phasellus ultricies, sapien non euismod aliquam, dui ligula tincidunt odio, at accumsan nulla sapien eget ex. | Proin eleifend dictum ipsum, non euismod ipsum pulvinar et. Vivamus sollicitudin, quam in pulvinar aliquam, metus elit pretium purus | Proin sit amet velit nec enim imperdiet vehicula. | Ut bibendum vestibulum quam, eu egestas turpis gravida nec | Sed scelerisque nec turpis vel viverra. Vivamus vitae pretium sapien |
-
-## Code Blocks
-### Code block with backticks
-
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Example HTML5 Document</title>
-</head>
-<body>
-  <p>Test</p>
-</body>
-</html>
-```
-
-### Code block indented with four spaces
-
-    <!doctype html>
-    <html lang="en">
-    <head>
-      <meta charset="utf-8">
-      <title>Example HTML5 Document</title>
-    </head>
-    <body>
-      <p>Test</p>
-    </body>
-    </html>
-
-### Diff code block
-
-```diff
-[dependencies.bevy]
-git = "https://github.com/bevyengine/bevy"
-rev = "11f52b8c72fc3a568e8bb4a4cd1f3eb025ac2e13"
-- features = ["dynamic"]
-+ features = ["jpeg", "dynamic"]
-```
-
-### One line code block
-
-```html
-<p>A paragraph</p>
-```
-
-## List Types
-
-### Ordered List
-
-1. First item
-2. Second item
-3. Third item
-
-### Unordered List
-
-* List item
-* Another item
-* And another item
-
-### Nested list
-
-* Fruit
-  * Apple
-  * Orange
-  * Banana
-* Dairy
-  * Milk
-  * Cheese
-
-## Other Elements — abbr, sub, sup, kbd, mark
-
-<abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
-
-H<sub>2</sub>O
-
-X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
-
-Press <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> to end the session.
-
-Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
+In conclusion, this challenge reminds us that sometimes the answers are simple and can be found in plain sight. By honing our observation skills and utilizing powerful tools like diff and exiftool, we can uncover hidden secrets. Remember, even in the world of cybersecurity, simplicity can hold the key to success. Keep exploring, keep hacking, and never stop learning! Happy Hacking. dr0idbot out.
