@@ -1,6 +1,6 @@
 ---
 title: Who am I?
-description:My CTF Journey: A Beginner's Exploration of Cybersecurity
+description: My CTF Journey: A Beginner's Exploration of Cybersecurity
 slug: who-am-i
 date: 2023-06-10 00:00:00+0000
 image: WhoAmI.jpg
@@ -75,4 +75,4 @@ After pasting and refreshing the webpage, we are now greeted by a welcome page w
 
 ### Conclusion
 
-I have to say, this was an easy challenge, even for a beginner like me. What I find hard is doing a write-up for the challenge on this blog, but again, I enjoy learning and sharing new stuff that I learn in this journey. Happy Hacking. PapaB3ar out.
+I have to say, this was an easy challenge, even for a beginner like me. What I find hard is doing a write-up for the challenge on this blog, but again, I enjoy learning and sharing new stuff that I learn in this journey. Happy Hacking. dr0idbot out.
