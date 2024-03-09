@@ -7,7 +7,7 @@ menu:
     main:
         weight: 2
         params: 
-            icon: 
+            icon: link
 ---
 
 ## Introduction
