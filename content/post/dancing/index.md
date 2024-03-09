@@ -74,8 +74,8 @@ get flag.txt
 ```
 Then leave this service by runnning the **exit** command.
 
-Now since we are back on our attack machine we can navigate to the directory where the flag file is saved and view its contents as shown below:
-[smb_shares](Flag.png) 
+Now since we are back on our attack machine we can navigate to the directory where the flag file is saved and view its contents.
+[flag](Flag.png) 
 
 We have our flag for this challenge. That also leaves us with all the answers  to the questions that came with this challenge.
 
