@@ -1,6 +1,6 @@
 ---
 title: Welcome Blog
-description:My CTF Journey: A Beginner's Exploration of Cybersecurity
+description: My CTF Journey: A Beginner's Exploration of Cybersecurity
 slug: welcome-blog
 date: 2023-06-03 00:00:00+0000
 image: cover.jpg
