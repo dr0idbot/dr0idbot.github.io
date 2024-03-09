@@ -1,8 +1,8 @@
 ---
-title: "Portfolio"
+title: "Links"
 date: 2022-03-06
 layout: "links"
-slug: "portfolio"
+slug: "links"
 menu:
     main:
         weight: 2
