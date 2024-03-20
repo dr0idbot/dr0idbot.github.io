@@ -37,8 +37,10 @@ The most common tools used in WIFI hacking are found in the aircrack-ng suite wh
 - Aircrack-ng
 - Airodump-ng
 - Airmon-ng
+
 which mostly attack WPA(2) networks. You also need to ensure you have a monitor mode Network Interface Card (NIC) to capture the 4-way handshake used by WPA networks. If you need results fast, it is good to use injection mode, which de-authenticates a client from the WIFI and forces the handshake to re-occur as the client tries to reconnect to the network.
-Most of the commands used for tools within this suite can be found on [this](https://www.aircrack-ng.org/doku.php?id=airmon-ng)page. We are going to go through some of the basic ones below. But first, here is an overview and summary of things we can do to exploit WPA/WPA2 networks in a flowchart:
+
+Most of the commands used for tools within this suite can be found on [this](https://www.aircrack-ng.org/doku.php?id=airmon-ng) page. We are going to go through some of the basic ones below. But first, here is an overview and summary of things we can do to exploit WPA/WPA2 networks in a flowchart:
 ![flowchart](flowchart.png)
 The image above is courtesy of [StationX](https://www.stationx.net/how-to-use-aircrack-ng-tutorial/). Note that we are not going to go through everything in this chart but just the basics.
 To enable monitor mode on our NIC we use the command:
@@ -52,7 +54,7 @@ We can see that the interface name changes to wlan0mon. Oftentimes, there might 
 airmon-ng check kill
 ```
 Which will kill all interfering processes and give you a similar output to this one:
-![check_kill](ChekKill.png)
+![check_kill](CheckKill.png)
 Now that our machine's Network Interface Card(NIC) is in monitor mode, we need to capture some packets that we can use for our attack. But what tool in the suite do we use, let's do a quick search on google:
 ![Airodump-ng](Airodump-ng.png)
 As shown above, we have a tool from the aircrack-ng suite for this exact task, the tool is called: airodump-ng
@@ -73,10 +75,11 @@ Notice the NinjaJ-01.cap file, which is what we are going to use next to create 
 ```
 aircrack-ng -j wifi NinjaJc01.cap
 ``` 
-aircrack-ng: Tool from suite that we are using for this task
--j: flag that specifies generation of a file from the pcap file specified into one that can be used to crack the password by aircrack-ng or hashcat.
-wifi: name of new file to be generated if the command successfully runs.
-NinjaJc01.cap: The file we are generating our new file from.
+- aircrack-ng: Tool from suite that we are using for this task
+- The flag -j: flag that specifies generation of a file from the pcap file specified into one that can be used to crack the password by aircrack-ng or hashcat.
+- wifi: name of new file to be generated if the command successfully runs.
+- NinjaJc01.cap: The file we are generating our new file from.
+
 In the output below, notice that we now have the MAC address and Name of the WIFI network that we are trying to gain access by cracking the WIFI’s password.
 ![HCCAPX](HCCAPX.png)
 The command successfully executes, meaning we can move forward and attempt cracking the password. As shown below, we can see that a new file names wifi.hccapx has been generated for us to use in our next step. We can now run the command:
