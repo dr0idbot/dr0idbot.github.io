@@ -7,9 +7,14 @@ tags:
     - TryHackMe
     - Privilege Escalation
     - Gobuster
+    - NMAP
+    - ssh
 categories:
     - Easy
     - TryHackMe
+    - Gobuster
+    - NMAP
+    - ssh
 ---
 ### Introduction
 Hello guys, it has been quite some time since I made a CTF writeup and I figured it's time to share some of my notes with you. Like many of you, I am a beginner and I am still learning and exploring stuff in cyber security. Just recently I got interviewed by [CyberShujaa](https://cybershujaa.co.ke/) as I had applied to be a scholar in their program for the Security Analyst path. I am happy to say that I have been shortlisted for the program. As part of the admission process, I was required to try out this beginner-level CTF challenge and I thought it wise to take some notes while solving it. You can find the challenge [here](https://tryhackme.com/room/easyctf#).
