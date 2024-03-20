@@ -1,5 +1,6 @@
 ---
 title: Welcome Blog
+weight: 10
 description:My CTF Journey: A Beginner's Exploration of Cybersecurity
 slug: welcome-blog
 date: 2023-06-03 00:00:00+0000
@@ -8,7 +9,6 @@ categories:
     - General
 tags:
     - General
-weight: 10       # You can add weight to some posts to override the default sorting (date descending)
 ---
 ## Introduction
 
