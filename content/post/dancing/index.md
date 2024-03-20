@@ -2,7 +2,7 @@
 title: "DANCING"
 description: Beginner Level CTF
 slug: dancing
-date: 2024-25-02 00:00:00+0000
+date: 2024-02-25 00:00:00+0000
 image: Completed.png
 categories: 
     - Easy
