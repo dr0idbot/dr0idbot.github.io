@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emolga - Pokémon Showcase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #05DA84 0%, #00B66C 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: linear-gradient(135deg, #83F1C4 0%, #53E9AD 100%);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .pokemon-name {
+            font-size: 48px;
+            font-weight: 700;
+            color: #980FD8;
+            text-transform: capitalize;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
+        }
+
+        .pokemon-id {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            color: #7B05B2;
+            letter-spacing: 1px;
+        }
+
+        .image-container {
+            background: linear-gradient(135deg, #FFEA8A 0%, #FFDB32 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 280px;
+        }
+
+        .pokemon-image {
+            max-width: 100%;
+            max-height: 250px;
+            image-rendering: pixelated;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        .loading {
+            text-align: center;
+            color: #7B05B2;
+            font-weight: 500;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #CF88F0 0%, #BB5AE8 100%);
+            border-radius: 12px;
+            padding: 16px;
+            color: white;
+        }
+
+        .info-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            opacity: 0.85;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .info-value.number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+        }
+
+        .types-container {
+            margin-bottom: 24px;
+        }
+
+        .types-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #7B05B2;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .types-list {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .type-badge {
+            background: linear-gradient(135deg, #FFE25B 0%, #FFD200 100%);
+            color: #7B05B2;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: capitalize;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .abilities-container {
+            margin-bottom: 24px;
+        }
+
+        .abilities-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #7B05B2;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .abilities-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .ability-item {
+            background: linear-gradient(135deg, #CF88F0 0%, #BB5AE8 100%);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            text-transform: capitalize;
+            font-weight: 500;
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, #CF88F0 0%, #BB5AE8 100%);
+            border-radius: 12px;
+            padding: 20px;
+            color: white;
+        }
+
+        .stats-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+
+        .stat-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .stat-name {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            flex: 1;
+        }
+
+        .stat-bar-container {
+            flex: 2;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            margin: 0 12px;
+            overflow: hidden;
+        }
+
+        .stat-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #FFE25B 0%, #FFDB32 100%);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            min-width: 30px;
+            text-align: right;
+        }
+
+        .error {
+            background: #980FD8;
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+
+            .pokemon-name {
+                font-size: 36px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .image-container {
+                padding: 20px;
+                min-height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="pokemon-name" id="pokemonName">Loading...</h1>
+            <p class="pokemon-id" id="pokemonId"></p>
+        </div>
+
+        <div class="image-container">
+            <div id="imageLoader" class="loading">Loading Pokémon...</div>
+            <img id="pokemonImage" class="pokemon-image" style="display: none;" alt="Pokemon">
+        </div>
+
+        <div id="content" style="display: none;">
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-label">Height</div>
+                    <div class="info-value number" id="height">-</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Weight</div>
+                    <div class="info-value number" id="weight">-</div>
+                </div>
+            </div>
+
+            <div class="types-container">
+                <div class="types-label">Type</div>
+                <div class="types-list" id="typesList"></div>
+            </div>
+
+            <div class="abilities-container">
+                <div class="abilities-label">Abilities</div>
+                <div class="abilities-list" id="abilitiesList"></div>
+            </div>
+
+            <div class="stats-section">
+                <div class="stats-title">Base Stats</div>
+                <div id="statsContainer"></div>
+            </div>
+        </div>
+
+        <div id="error" style="display: none;" class="error"></div>
+    </div>
+
+    <script>
+        async function fetchPokemonData() {
+            try {
+                const response = await fetch('https://pokeapi.co/api/v2/pokemon/emolga');
+                if (!response.ok) throw new Error('Failed to fetch data');
+                
+                const data = await response.json();
+                
+                // Display name
+                document.getElementById('pokemonName').textContent = data.name;
+                document.getElementById('pokemonId').textContent = `#${String(data.id).padStart(3, '0')}`;
+                
+                // Display image
+                const imageUrl = data.sprites.other['official-artwork'].front_default || 
+                                data.sprites.front_default;
+                const imgElement = document.getElementById('pokemonImage');
+                imgElement.src = imageUrl;
+                imgElement.style.display = 'block';
+                document.getElementById('imageLoader').style.display = 'none';
+                
+                // Display height and weight
+                document.getElementById('height').textContent = (data.height / 10).toFixed(1) + ' m';
+                document.getElementById('weight').textContent = (data.weight / 10).toFixed(1) + ' kg';
+                
+                // Display types
+                const typesList = document.getElementById('typesList');
+                typesList.innerHTML = data.types
+                    .map(t => `<span class="type-badge">${t.type.name}</span>`)
+                    .join('');
+                
+                // Display abilities
+                const abilitiesList = document.getElementById('abilitiesList');
+                abilitiesList.innerHTML = data.abilities
+                    .map(a => `<div class="ability-item">${a.ability.name}</div>`)
+                    .join('');
+                
+                // Display stats
+                const statsContainer = document.getElementById('statsContainer');
+                const maxStatValue = 150;
+                statsContainer.innerHTML = data.stats
+                    .map(stat => {
+                        const percentage = (stat.base_stat / maxStatValue) * 100;
+                        return `
+                            <div class="stat-row">
+                                <div class="stat-name">${stat.stat.name}</div>
+                                <div class="stat-bar-container">
+                                    <div class="stat-bar" style="width: ${percentage}%"></div>
+                                </div>
+                                <div class="stat-value">${stat.base_stat}</div>
+                            </div>
+                        `;
+                    })
+                    .join('');
+                
+                // Show content
+                document.getElementById('content').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('error').textContent = 'Failed to load Pokémon data. Please try again later.';
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('imageLoader').style.display = 'none';
+            }
+        }
+        
+        // Fetch data when page loads
+        window.addEventListener('load', fetchPokemonData);
+    </script>
+</body>
+</html>
+
