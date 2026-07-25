@@ -14,9 +14,13 @@ const state = {
 const els = {
   themeToggle: document.getElementById('themeToggle'),
   updateTime: document.getElementById('updateTime'),
-  heroBaseCode: document.getElementById('heroBaseCode'),
-  heroBaseName: document.getElementById('heroBaseName'),
   heroFlagImg: document.getElementById('heroFlagImg'),
+  heroCountryName: document.getElementById('heroCountryName'),
+  heroLocation: document.getElementById('heroLocation'),
+  heroBaseLabel: document.getElementById('heroBaseLabel'),
+  heroCurrencySymbol: document.getElementById('heroCurrencySymbol'),
+  heroCurrencyCode: document.getElementById('heroCurrencyCode'),
+  heroCurrencyName: document.getElementById('heroCurrencyName'),
   baseCurrency: document.getElementById('baseCurrency'),
   currencyFrom: document.getElementById('currencyFrom'),
   currencyTo: document.getElementById('currencyTo'),
@@ -30,13 +34,23 @@ const els = {
   errorMessage: document.getElementById('errorMessage'),
   retryBtn: document.getElementById('retryBtn'),
   searchInput: document.getElementById('searchInput'),
+  cdFromFlag: document.getElementById('cdFromFlag'),
+  cdToFlag: document.getElementById('cdToFlag'),
+  cdFromSymbol: document.getElementById('cdFromSymbol'),
+  cdToSymbol: document.getElementById('cdToSymbol'),
+  cdFromAmount: document.getElementById('cdFromAmount'),
+  cdToAmount: document.getElementById('cdToAmount'),
+  cdFromCode: document.getElementById('cdFromCode'),
+  cdToCode: document.getElementById('cdToCode'),
 };
 
 function formatNum(n, decimals = 4) {
   if (n === null || n === undefined || isNaN(n)) return '-';
+  if (n >= 10000) return n.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
   if (n >= 1000) return n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   if (n >= 1) return n.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
-  return n.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+  if (n >= 0.01) return n.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+  return n.toLocaleString(undefined, { minimumFractionDigits: 6, maximumFractionDigits: 6 });
 }
 
 async function fetchJSON(url) {
@@ -71,12 +85,14 @@ async function fetchCurrencies() {
   const data = await fetchJSON(`${FRANKFURTER}/currencies`);
   state.currencies = new Map();
   for (const c of data) {
-    state.currencies.set(c.iso_code, c.name);
+    state.currencies.set(c.iso_code, { name: c.name, symbol: c.symbol || '' });
   }
 }
 
 async function fetchCountries() {
-  const data = await fetchJSON(`${COUNTRIES_API}/countries?fields=name,alpha2Code,currencies,flag,flags,capital`);
+  const data = await fetchJSON(
+    `${COUNTRIES_API}/countries?fields=name,alpha2Code,currencies,flag,flags,capital,region`
+  );
   state.countries = new Map();
   for (const c of data) {
     state.countries.set(c.alpha2Code, c);
@@ -88,7 +104,16 @@ function buildCurrencyCountryMap() {
   for (const c of state.countries.values()) {
     if (!c.currencies) continue;
     for (const curr of c.currencies) {
-      if (curr.code && !state.currencyCountry.has(curr.code)) {
+      if (!curr.code) continue;
+      if (!state.currencyCountry.has(curr.code)) {
+        state.currencyCountry.set(curr.code, c);
+      }
+    }
+  }
+  for (const c of state.countries.values()) {
+    if (!c.currencies) continue;
+    for (const curr of c.currencies) {
+      if (curr.code && c.alpha2Code === curr.code.substring(0, 2)) {
         state.currencyCountry.set(curr.code, c);
       }
     }
@@ -102,7 +127,12 @@ function getCountryForCurrency(code) {
 function getFlagUrl(country) {
   if (!country) return '';
   if (country.flags && country.flags.svg) return country.flags.svg;
+  if (country.flags && country.flags.png) return country.flags.png;
   return '';
+}
+
+function getCurrencyInfo(code) {
+  return state.currencies.get(code) || { name: code, symbol: '' };
 }
 
 async function fetchRates(base) {
@@ -115,7 +145,9 @@ async function fetchRates(base) {
   state.ratesDate = data.length > 0 ? data[0].date : null;
   if (state.ratesDate) {
     const d = new Date(state.ratesDate);
-    els.updateTime.textContent = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+    els.updateTime.textContent = d.toLocaleDateString(undefined, {
+      month: 'short', day: 'numeric', year: 'numeric',
+    });
   }
 }
 
@@ -123,8 +155,10 @@ function populateSelects() {
   const codes = Array.from(state.currencies.keys()).sort();
   const opts = codes.map(c => {
     const country = getCountryForCurrency(c);
+    const info = getCurrencyInfo(c);
     const flag = country ? country.flag : '';
-    return `<option value="${c}">${flag} ${c} — ${state.currencies.get(c)}</option>`;
+    const sym = info.symbol ? ` (${info.symbol})` : '';
+    return `<option value="${c}">${flag} ${c}${sym} — ${info.name}</option>`;
   }).join('');
 
   els.baseCurrency.innerHTML = opts;
@@ -140,16 +174,27 @@ function render() {
   hideError();
   hideLoading();
   updateHero();
-  updateConverterRate();
+  updateConverter();
   renderRates();
 }
 
 function updateHero() {
   const country = getCountryForCurrency(state.base);
-  els.heroBaseCode.textContent = state.base;
-  els.heroBaseName.textContent = state.currencies.get(state.base) || state.base;
+  const info = getCurrencyInfo(state.base);
+
+  els.heroCountryName.textContent = country ? country.name : state.base;
   els.heroFlagImg.src = getFlagUrl(country);
   els.heroFlagImg.alt = country ? country.name : state.base;
+  els.heroFlagImg.onerror = function () {
+    this.style.display = 'none';
+  };
+  els.heroBaseLabel.textContent = state.base;
+  els.heroLocation.textContent = country
+    ? [country.capital, country.region].filter(Boolean).join(' · ')
+    : '—';
+  els.heroCurrencySymbol.textContent = info.symbol || '—';
+  els.heroCurrencyCode.textContent = state.base;
+  els.heroCurrencyName.textContent = info.name;
 
   const majors = ['EUR', 'GBP', 'JPY', 'CHF'];
   for (const code of majors) {
@@ -171,9 +216,50 @@ function getRateFor(code) {
   return state.rates?.[code] ?? null;
 }
 
-function updateConverterRate() {
+function convert(amount, from, to) {
+  const fromRate = getRateFor(from);
+  const toRate = getRateFor(to);
+  if (fromRate == null || toRate == null) return null;
+  return (amount * toRate) / fromRate;
+}
+
+function updateConverter() {
   const from = els.currencyFrom.value;
   const to = els.currencyTo.value;
+  const amount = parseFloat(els.amountFrom.value) || 0;
+  const fromInfo = getCurrencyInfo(from);
+  const toInfo = getCurrencyInfo(to);
+  const fromCountry = getCountryForCurrency(from);
+  const toCountry = getCountryForCurrency(to);
+
+  els.cdFromFlag.textContent = fromCountry ? fromCountry.flag : '';
+  els.cdToFlag.textContent = toCountry ? toCountry.flag : '';
+  els.cdFromSymbol.textContent = fromInfo.symbol || '';
+  els.cdToSymbol.textContent = toInfo.symbol || '';
+  els.cdFromAmount.textContent = formatNum(amount, 4);
+  els.cdFromCode.textContent = from;
+  els.cdToCode.textContent = to;
+
+  const result = convert(amount, from, to);
+  if (result != null) {
+    const formatted = formatNum(result, 4);
+    const prev = els.cdToAmount.textContent;
+    els.cdToAmount.textContent = formatted;
+    els.amountTo.value = formatted;
+
+    if (prev !== formatted && prev !== '-') {
+      anime({
+        targets: els.cdToAmount,
+        scale: [1.05, 1],
+        duration: 300,
+        easing: 'easeOutQuad',
+      });
+    }
+  } else {
+    els.cdToAmount.textContent = '-';
+    els.amountTo.value = '-';
+  }
+
   const fromRate = getRateFor(from);
   const toRate = getRateFor(to);
   if (fromRate != null && toRate != null) {
@@ -182,35 +268,6 @@ function updateConverterRate() {
   } else {
     els.rateDisplay.textContent = '-';
   }
-}
-
-function convert(amount, from, to) {
-  const fromRate = getRateFor(from);
-  const toRate = getRateFor(to);
-  if (fromRate == null || toRate == null) return null;
-  return (amount * toRate) / fromRate;
-}
-
-function updateConvertedAmount() {
-  const amount = parseFloat(els.amountFrom.value) || 0;
-  const from = els.currencyFrom.value;
-  const to = els.currencyTo.value;
-  const result = convert(amount, from, to);
-  if (result != null) {
-    const formatted = formatNum(result, 4);
-    if (els.amountTo.value !== formatted) {
-      els.amountTo.value = formatted;
-      anime({
-        targets: els.amountTo,
-        scale: [1.05, 1],
-        duration: 300,
-        easing: 'easeOutQuad',
-      });
-    }
-  } else {
-    els.amountTo.value = '-';
-  }
-  updateConverterRate();
 }
 
 function renderRates() {
@@ -224,28 +281,36 @@ function renderRates() {
     if (rate == null) continue;
 
     const country = getCountryForCurrency(code);
+    const info = getCurrencyInfo(code);
+    const flagUrl = getFlagUrl(country);
+
     const card = document.createElement('div');
     card.className = 'currency-card';
     card.dataset.code = code;
-    card.dataset.name = (state.currencies.get(code) || '').toLowerCase();
+    card.dataset.name = info.name.toLowerCase();
     card.dataset.country = (country?.name || '').toLowerCase();
 
     let flagHtml;
-    const flagUrl = getFlagUrl(country);
     if (flagUrl) {
-      flagHtml = `<img src="${flagUrl}" alt="${country.name}" loading="lazy">`;
+      flagHtml =
+        `<img src="${flagUrl}" alt="${country?.name || code}" loading="lazy">` +
+        `<span class="flag-emoji" style="display:none">${country?.flag || '💱'}</span>`;
     } else if (country && country.flag) {
-      flagHtml = `<span class="flag-placeholder">${country.flag}</span>`;
+      flagHtml = `<span class="flag-emoji">${country.flag}</span>`;
     } else {
-      flagHtml = `<span class="flag-placeholder">💱</span>`;
+      flagHtml = `<span class="flag-emoji">💱</span>`;
     }
 
     card.innerHTML = `
-      <div class="card-top">
+      <div class="card-flag-row">
         <div class="card-flag">${flagHtml}</div>
-        <span class="card-code">${code}</span>
+        <div class="card-country-name">${country?.name || info.name}</div>
       </div>
-      <div class="card-name">${state.currencies.get(code) || code}</div>
+      <div class="card-currency-line">
+        ${info.symbol ? `<span class="card-currency-symbol">${info.symbol}</span>` : ''}
+        <span class="card-currency-code">${code}</span>
+        <span class="card-currency-name">${info.name}</span>
+      </div>
       <div class="card-rate">
         <span class="card-rate-value">${formatNum(rate, 4)}</span>
         <span class="card-rate-label">/${base}</span>
@@ -254,8 +319,17 @@ function renderRates() {
 
     card.addEventListener('click', () => {
       els.currencyTo.value = code;
-      updateConvertedAmount();
+      updateConverter();
     });
+
+    const cardImg = card.querySelector('.card-flag > img');
+    if (cardImg) {
+      cardImg.addEventListener('error', function handler() {
+        this.style.display = 'none';
+        const fallback = this.nextElementSibling;
+        if (fallback) fallback.style.display = 'flex';
+      });
+    }
 
     fragment.appendChild(card);
   }
@@ -321,7 +395,7 @@ function applyTheme(theme) {
 }
 
 function runEntryAnimations() {
-  gsap.from('.hero-base', { opacity: 0, x: -30, duration: 0.7, ease: 'power2.out' });
+  gsap.from('.hero-country', { opacity: 0, x: -30, duration: 0.7, ease: 'power2.out' });
   gsap.from('.hero-rate-card', {
     opacity: 0,
     y: 20,
@@ -357,31 +431,29 @@ async function refreshAll() {
   lucide.createIcons();
 }
 
+function handleSwap() {
+  const tmp = els.currencyFrom.value;
+  els.currencyFrom.value = els.currencyTo.value;
+  els.currencyTo.value = tmp;
+
+  anime({
+    targets: els.swapBtn,
+    rotate: ['0deg', '360deg'],
+    duration: 500,
+    easing: 'easeInOutQuad',
+  });
+  setTimeout(() => { els.swapBtn.style.rotate = ''; }, 550);
+
+  updateConverter();
+}
+
 function setupListeners() {
   els.themeToggle.addEventListener('click', toggleTheme);
   els.baseCurrency.addEventListener('change', handleBaseChange);
-  els.currencyFrom.addEventListener('change', updateConvertedAmount);
-  els.currencyTo.addEventListener('change', updateConvertedAmount);
-  els.amountFrom.addEventListener('input', updateConvertedAmount);
-
-  els.swapBtn.addEventListener('click', () => {
-    const tmp = els.currencyFrom.value;
-    els.currencyFrom.value = els.currencyTo.value;
-    els.currencyTo.value = tmp;
-
-    anime({
-      targets: els.swapBtn,
-      rotate: ['0deg', '180deg'],
-      duration: 400,
-      easing: 'easeInOutQuad',
-    });
-    setTimeout(() => {
-      els.swapBtn.style.rotate = '';
-    }, 450);
-
-    updateConvertedAmount();
-  });
-
+  els.currencyFrom.addEventListener('change', updateConverter);
+  els.currencyTo.addEventListener('change', updateConverter);
+  els.amountFrom.addEventListener('input', updateConverter);
+  els.swapBtn.addEventListener('click', handleSwap);
   els.searchInput.addEventListener('input', filterRates);
 
   els.retryBtn.addEventListener('click', async () => {

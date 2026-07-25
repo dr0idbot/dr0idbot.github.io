@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Currency Explorer</title>
-  <meta name="description" content="Live exchange rates & currency converter powered by Frankfurter and countries.dev APIs.">
+  <title>World Currencies & Countries</title>
+  <meta name="description" content="Explore countries and their currencies with live exchange rates. Powered by Frankfurter and countries.dev APIs.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +20,7 @@
       <div class="header-inner">
         <div class="header-left">
           <i data-lucide="globe" class="logo-icon"></i>
-          <h1 class="logo-text">Currency<span>Explorer</span></h1>
+          <h1 class="logo-text">World<span>Currencies</span></h1>
         </div>
         <div class="header-right">
           <span class="update-info" id="updateInfo">
@@ -40,13 +40,22 @@
       <section class="hero" id="hero">
         <div class="hero-bg"></div>
         <div class="hero-content">
-          <div class="hero-base" id="heroBase">
-            <div class="hero-base-flag" id="heroBaseFlag">
-              <img src="" alt="" id="heroFlagImg">
+          <div class="hero-country" id="heroCountry">
+            <div class="hero-flag-wrap">
+              <img src="" alt="" id="heroFlagImg" class="hero-flag-img">
             </div>
-            <div class="hero-base-info">
-              <span class="hero-base-code" id="heroBaseCode">USD</span>
-              <span class="hero-base-name" id="heroBaseName">United States Dollar</span>
+            <div class="hero-info">
+              <div class="hero-meta">
+                <span class="hero-label">Base Country</span>
+                <span id="heroBaseLabel" class="hero-base-tag"></span>
+              </div>
+              <h2 class="hero-country-name" id="heroCountryName">-</h2>
+              <span class="hero-location" id="heroLocation">-</span>
+              <div class="hero-currency-detail">
+                <span class="hero-currency-symbol" id="heroCurrencySymbol">-</span>
+                <span class="hero-currency-code" id="heroCurrencyCode">-</span>
+                <span class="hero-currency-name" id="heroCurrencyName">-</span>
+              </div>
             </div>
           </div>
           <div class="hero-rates" id="heroRates">
@@ -85,30 +94,42 @@
               <label for="amountFrom">Amount</label>
               <input type="number" id="amountFrom" class="converter-input" value="1" min="0" step="any">
             </div>
-            <div class="converter-select-group">
-              <label for="currencyFrom">From</label>
-              <div class="select-wrap">
-                <select id="currencyFrom" class="converter-select"></select>
-                <i data-lucide="chevron-down" class="select-chevron"></i>
+            <div class="converter-pair">
+              <div class="converter-select-group">
+                <label for="currencyFrom">From</label>
+                <div class="select-wrap">
+                  <select id="currencyFrom" class="converter-select"></select>
+                  <i data-lucide="chevron-down" class="select-chevron"></i>
+                </div>
+              </div>
+              <button class="swap-btn" id="swapBtn" aria-label="Swap currencies">
+                <i data-lucide="arrow-up-down"></i>
+              </button>
+              <div class="converter-select-group">
+                <label for="currencyTo">To</label>
+                <div class="select-wrap">
+                  <select id="currencyTo" class="converter-select"></select>
+                  <i data-lucide="chevron-down" class="select-chevron"></i>
+                </div>
               </div>
             </div>
           </div>
 
-          <button class="swap-btn" id="swapBtn" aria-label="Swap currencies">
-            <i data-lucide="arrow-up-down"></i>
-          </button>
-
-          <div class="converter-row">
-            <div class="converter-input-group">
-              <label for="amountTo">Converted</label>
-              <input type="text" id="amountTo" class="converter-input result-input" readonly value="-">
+          <div class="converter-display" id="converterDisplay">
+            <div class="cd-side" id="cdFrom">
+              <span class="cd-flag" id="cdFromFlag"></span>
+              <span class="cd-symbol" id="cdFromSymbol"></span>
+              <span class="cd-amount" id="cdFromAmount">1</span>
+              <span class="cd-code" id="cdFromCode">USD</span>
             </div>
-            <div class="converter-select-group">
-              <label for="currencyTo">To</label>
-              <div class="select-wrap">
-                <select id="currencyTo" class="converter-select"></select>
-                <i data-lucide="chevron-down" class="select-chevron"></i>
-              </div>
+            <div class="cd-arrow">
+              <i data-lucide="arrow-right"></i>
+            </div>
+            <div class="cd-side" id="cdTo">
+              <span class="cd-flag" id="cdToFlag"></span>
+              <span class="cd-symbol" id="cdToSymbol"></span>
+              <span class="cd-amount" id="cdToAmount">-</span>
+              <span class="cd-code" id="cdToCode">EUR</span>
             </div>
           </div>
 
@@ -120,12 +141,12 @@
 
       <section class="rates-section" id="ratesSection">
         <div class="section-header">
-          <i data-lucide="list" class="section-icon"></i>
-          <h2>All Exchange Rates</h2>
+          <i data-lucide="layout-grid" class="section-icon"></i>
+          <h2>Countries &amp; Currencies</h2>
           <div class="rates-controls">
             <div class="search-wrap">
               <i data-lucide="search" class="search-icon"></i>
-              <input type="text" id="searchInput" class="search-input" placeholder="Search currency or country...">
+              <input type="text" id="searchInput" class="search-input" placeholder="Search country or currency...">
             </div>
             <div class="select-wrap base-select-wrap">
               <select id="baseCurrency" class="converter-select base-select"></select>
@@ -136,7 +157,7 @@
         <div class="rates-grid" id="ratesGrid">
           <div class="loading-state" id="loadingState">
             <div class="spinner"></div>
-            <p>Fetching exchange rates...</p>
+            <p>Fetching exchange rates…</p>
           </div>
           <div class="error-state" id="errorState" style="display:none">
             <i data-lucide="alert-circle" class="error-icon"></i>
