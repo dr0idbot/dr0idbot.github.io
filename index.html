@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Currency Explorer</title>
+  <meta name="description" content="Live exchange rates & currency converter powered by Frankfurter and countries.dev APIs.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230ea5e9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='2' y1='12' x2='22' y2='12'/%3E%3Cpath d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/%3E%3C/svg%3E">
+</head>
+<body>
+
+  <div id="app">
+    <header class="header">
+      <div class="header-inner">
+        <div class="header-left">
+          <i data-lucide="globe" class="logo-icon"></i>
+          <h1 class="logo-text">Currency<span>Explorer</span></h1>
+        </div>
+        <div class="header-right">
+          <span class="update-info" id="updateInfo">
+            <i data-lucide="clock" size="14"></i>
+            <span id="updateTime">-</span>
+          </span>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <i data-lucide="moon" class="theme-icon-light"></i>
+            <i data-lucide="sun" class="theme-icon-dark"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+
+      <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+          <div class="hero-base" id="heroBase">
+            <div class="hero-base-flag" id="heroBaseFlag">
+              <img src="" alt="" id="heroFlagImg">
+            </div>
+            <div class="hero-base-info">
+              <span class="hero-base-code" id="heroBaseCode">USD</span>
+              <span class="hero-base-name" id="heroBaseName">United States Dollar</span>
+            </div>
+          </div>
+          <div class="hero-rates" id="heroRates">
+            <div class="hero-rate-card" data-currency="EUR">
+              <span class="hrc-flag" id="hrFlagEUR"></span>
+              <span class="hrc-code">EUR</span>
+              <span class="hrc-rate" id="hrRateEUR">-</span>
+            </div>
+            <div class="hero-rate-card" data-currency="GBP">
+              <span class="hrc-flag" id="hrFlagGBP"></span>
+              <span class="hrc-code">GBP</span>
+              <span class="hrc-rate" id="hrRateGBP">-</span>
+            </div>
+            <div class="hero-rate-card" data-currency="JPY">
+              <span class="hrc-flag" id="hrFlagJPY"></span>
+              <span class="hrc-code">JPY</span>
+              <span class="hrc-rate" id="hrRateJPY">-</span>
+            </div>
+            <div class="hero-rate-card" data-currency="CHF">
+              <span class="hrc-flag" id="hrFlagCHF"></span>
+              <span class="hrc-code">CHF</span>
+              <span class="hrc-rate" id="hrRateCHF">-</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="converter-section" id="converterSection">
+        <div class="section-header">
+          <i data-lucide="arrow-left-right" class="section-icon"></i>
+          <h2>Currency Converter</h2>
+        </div>
+        <div class="converter-card" id="converterCard">
+          <div class="converter-row">
+            <div class="converter-input-group">
+              <label for="amountFrom">Amount</label>
+              <input type="number" id="amountFrom" class="converter-input" value="1" min="0" step="any">
+            </div>
+            <div class="converter-select-group">
+              <label for="currencyFrom">From</label>
+              <div class="select-wrap">
+                <select id="currencyFrom" class="converter-select"></select>
+                <i data-lucide="chevron-down" class="select-chevron"></i>
+              </div>
+            </div>
+          </div>
+
+          <button class="swap-btn" id="swapBtn" aria-label="Swap currencies">
+            <i data-lucide="arrow-up-down"></i>
+          </button>
+
+          <div class="converter-row">
+            <div class="converter-input-group">
+              <label for="amountTo">Converted</label>
+              <input type="text" id="amountTo" class="converter-input result-input" readonly value="-">
+            </div>
+            <div class="converter-select-group">
+              <label for="currencyTo">To</label>
+              <div class="select-wrap">
+                <select id="currencyTo" class="converter-select"></select>
+                <i data-lucide="chevron-down" class="select-chevron"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="converter-rate" id="converterRate">
+            <span id="rateDisplay">1 USD = 0.92 EUR</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="rates-section" id="ratesSection">
+        <div class="section-header">
+          <i data-lucide="list" class="section-icon"></i>
+          <h2>All Exchange Rates</h2>
+          <div class="rates-controls">
+            <div class="search-wrap">
+              <i data-lucide="search" class="search-icon"></i>
+              <input type="text" id="searchInput" class="search-input" placeholder="Search currency or country...">
+            </div>
+            <div class="select-wrap base-select-wrap">
+              <select id="baseCurrency" class="converter-select base-select"></select>
+              <i data-lucide="chevron-down" class="select-chevron"></i>
+            </div>
+          </div>
+        </div>
+        <div class="rates-grid" id="ratesGrid">
+          <div class="loading-state" id="loadingState">
+            <div class="spinner"></div>
+            <p>Fetching exchange rates...</p>
+          </div>
+          <div class="error-state" id="errorState" style="display:none">
+            <i data-lucide="alert-circle" class="error-icon"></i>
+            <p id="errorMessage">Failed to load rates.</p>
+            <button class="retry-btn" id="retryBtn">Retry</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <p>Powered by <a href="https://frankfurter.dev" target="_blank" rel="noopener">Frankfurter</a> &amp; <a href="https://countries.dev" target="_blank" rel="noopener">countries.dev</a></p>
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
