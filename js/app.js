@@ -25,7 +25,6 @@ const els = {
   currencyFrom: document.getElementById('currencyFrom'),
   currencyTo: document.getElementById('currencyTo'),
   amountFrom: document.getElementById('amountFrom'),
-  amountTo: document.getElementById('amountTo'),
   swapBtn: document.getElementById('swapBtn'),
   rateDisplay: document.getElementById('rateDisplay'),
   ratesGrid: document.getElementById('ratesGrid'),
@@ -245,7 +244,6 @@ function updateConverter() {
     const formatted = formatNum(result, 4);
     const prev = els.cdToAmount.textContent;
     els.cdToAmount.textContent = formatted;
-    els.amountTo.value = formatted;
 
     if (prev !== formatted && prev !== '-') {
       anime({
@@ -257,7 +255,6 @@ function updateConverter() {
     }
   } else {
     els.cdToAmount.textContent = '-';
-    els.amountTo.value = '-';
   }
 
   const fromRate = getRateFor(from);
