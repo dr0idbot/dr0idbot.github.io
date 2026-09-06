@@ -55,7 +55,7 @@
     --mantle-dark: #181825;
     --crust-dark: #11111b;
 
-    --base-size: 4px;
+    --base-size: 5px;
 
     --size-1: calc(var(--base-size) * 0.25);
     --size-2: calc(var(--base-size) * 0.5);
