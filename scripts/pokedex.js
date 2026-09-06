@@ -1,4 +1,4 @@
-// Pokédex Single Random Pokémon Implementation with Rich Details & Anime.js Animations
+// Pokédex Single Random Pokémon Implementation with Rich Details & Dynamic Color Shadows
 
 // Shared Theme Logic
 (function () {
@@ -42,6 +42,28 @@
     }
   });
 })();
+
+// Type Shadow & Glow Color Mapping
+const TYPE_COLOR_MAP = {
+  fire: 'rgba(248, 113, 113, 0.65)',
+  water: 'rgba(96, 165, 250, 0.65)',
+  grass: 'rgba(74, 222, 128, 0.65)',
+  electric: 'rgba(250, 204, 21, 0.75)',
+  psychic: 'rgba(236, 72, 153, 0.65)',
+  poison: 'rgba(168, 85, 247, 0.65)',
+  dragon: 'rgba(99, 102, 241, 0.65)',
+  ice: 'rgba(56, 189, 248, 0.65)',
+  ghost: 'rgba(129, 140, 248, 0.65)',
+  fairy: 'rgba(244, 114, 182, 0.65)',
+  fighting: 'rgba(251, 146, 60, 0.65)',
+  ground: 'rgba(245, 158, 11, 0.65)',
+  rock: 'rgba(217, 119, 6, 0.65)',
+  bug: 'rgba(163, 230, 53, 0.65)',
+  steel: 'rgba(148, 163, 184, 0.65)',
+  dark: 'rgba(107, 114, 128, 0.65)',
+  normal: 'rgba(156, 163, 175, 0.65)',
+  flying: 'rgba(167, 139, 250, 0.65)'
+};
 
 // Built-in fallback Pokémon dataset with rich details
 const FALLBACK_POKEMON = [
@@ -159,6 +181,7 @@ function displayPokemon(pkmn) {
 
   const card = document.getElementById('featured-card');
   const img = document.getElementById('pkmn-img');
+  const glowBg = document.getElementById('img-glow');
   const name = document.getElementById('pkmn-name');
   const idTag = document.getElementById('pkmn-id');
   const category = document.getElementById('pkmn-category');
@@ -204,10 +227,18 @@ function displayPokemon(pkmn) {
     }
   }
 
-  // Image Artwork
+  // Dynamic Type Color Shadow & Aura Glow
+  const primaryType = (pkmn.types && pkmn.types[0]) ? pkmn.types[0].toLowerCase() : 'normal';
+  const shadowColor = TYPE_COLOR_MAP[primaryType] || 'rgba(136, 57, 239, 0.65)';
+
   if (img) {
     img.src = pkmn.imageNormal;
     img.alt = pkmn.name;
+    img.style.filter = `drop-shadow(0 14px 28px ${shadowColor})`;
+  }
+
+  if (glowBg) {
+    glowBg.style.background = `radial-gradient(circle, ${shadowColor} 0%, rgba(0, 0, 0, 0) 70%)`;
   }
 
   // Types
