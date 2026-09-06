@@ -1,4 +1,4 @@
-// Pokédex Single Random Pokémon Implementation with Rich Details & Dynamic Color Shadows
+// Pokédex Single Random Pokémon Implementation with Refined Type Colors & Animations
 
 // Shared Theme Logic
 (function () {
@@ -43,7 +43,7 @@
   });
 })();
 
-// Type Shadow & Glow Color Mapping
+// Refined Type Shadow Color Mapping
 const TYPE_COLOR_MAP = {
   fire: 'rgba(248, 113, 113, 0.65)',
   water: 'rgba(96, 165, 250, 0.65)',
@@ -181,7 +181,6 @@ function displayPokemon(pkmn) {
 
   const card = document.getElementById('featured-card');
   const img = document.getElementById('pkmn-img');
-  const glowBg = document.getElementById('img-glow');
   const name = document.getElementById('pkmn-name');
   const idTag = document.getElementById('pkmn-id');
   const category = document.getElementById('pkmn-category');
@@ -227,18 +226,20 @@ function displayPokemon(pkmn) {
     }
   }
 
-  // Dynamic Type Color Shadow & Aura Glow
+  // Refined Dynamic Type Drop-Shadow & Ambient Card Glow
   const primaryType = (pkmn.types && pkmn.types[0]) ? pkmn.types[0].toLowerCase() : 'normal';
   const shadowColor = TYPE_COLOR_MAP[primaryType] || 'rgba(136, 57, 239, 0.65)';
 
   if (img) {
     img.src = pkmn.imageNormal;
     img.alt = pkmn.name;
-    img.style.filter = `drop-shadow(0 14px 28px ${shadowColor})`;
+    img.style.filter = `drop-shadow(0 14px 24px ${shadowColor})`;
   }
 
-  if (glowBg) {
-    glowBg.style.background = `radial-gradient(circle, ${shadowColor} 0%, rgba(0, 0, 0, 0) 70%)`;
+  if (card) {
+    card.style.borderColor = shadowColor;
+    const ambientGlow = shadowColor.replace(/[\d\.]+\)$/, '0.18)');
+    card.style.boxShadow = `0 20px 48px ${ambientGlow}`;
   }
 
   // Types
