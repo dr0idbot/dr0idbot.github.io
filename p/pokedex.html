@@ -1,13 +1,167 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page One</title>
+  <title>Pokédex - dr0idbot</title>
   <link rel="stylesheet" href="../styles/master.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="../scripts/animations.js"></script>
 </head>
 <body>
-  <h1>Page One</h1>
-  <p>Coming soon.</p>
+  <div class="subpage-top-bar">
+    <a href="../index.html" class="back-btn">
+      <i data-lucide="arrow-left"></i>
+      <span>Back</span>
+    </a>
+    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+      <i data-lucide="sun" id="theme-sun" style="display:none;"></i>
+      <i data-lucide="moon" id="theme-moon"></i>
+    </button>
+  </div>
+
+  <main class="pokedex-container">
+    <div class="pokedex-centered-wrap">
+      <header class="pokedex-header">
+        <h1 class="pokedex-title">Pokédex</h1>
+      </header>
+
+      <div class="pokedex-actions">
+        <button id="btn-random" class="btn-random">
+          <i data-lucide="shuffle"></i>
+          <span>Generate New Pokémon</span>
+        </button>
+      </div>
+
+      <article id="featured-card" class="featured-card">
+        <div class="card-left-col">
+          <div class="card-top">
+            <div class="card-media-controls">
+              <button id="btn-shiny" class="btn-icon-action" title="Toggle Shiny Artwork" aria-label="Toggle Shiny">
+                <i data-lucide="sparkles"></i>
+              </button>
+              <button id="btn-cry" class="btn-icon-action" title="Play Cry Audio" aria-label="Play Cry">
+                <i data-lucide="volume-2"></i>
+              </button>
+            </div>
+
+            <div class="card-header-tags">
+              <span id="pkmn-status-badge" class="status-badge" style="display:none;"></span>
+              <span id="pkmn-id" class="pokemon-id-tag">#000</span>
+            </div>
+
+            <div class="featured-img-wrap">
+              <img id="pkmn-img" src="" alt="Pokémon Artwork">
+            </div>
+            <h2 id="pkmn-name" class="pokemon-name-heading">Loading...</h2>
+            <span id="pkmn-category" class="pokemon-category">Pokémon</span>
+            <div id="pkmn-types" class="pokemon-types-list"></div>
+          </div>
+
+          <!-- Pokédex Entry Text -->
+          <div id="pkmn-flavor-box" class="pokedex-entry-box">
+            "<span id="pkmn-flavor-text">Fetching Pokédex entry...</span>"
+          </div>
+        </div>
+
+        <div class="card-right-col">
+          <!-- Expanded Metrics Grid -->
+          <div class="metrics-grid">
+            <div class="metric-item">
+              <span class="metric-label">Height</span>
+              <span id="pkmn-height" class="metric-value">-</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Weight</span>
+              <span id="pkmn-weight" class="metric-value">-</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Abilities</span>
+              <span id="pkmn-abilities" class="metric-value">-</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Base XP</span>
+              <span id="pkmn-base-xp" class="metric-value">-</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Catch Rate</span>
+              <span id="pkmn-capture-rate" class="metric-value">-</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Generation</span>
+              <span id="pkmn-generation" class="metric-value">-</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Habitat</span>
+              <span id="pkmn-habitat" class="metric-value">-</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Egg Groups</span>
+              <span id="pkmn-egg-groups" class="metric-value">-</span>
+            </div>
+          </div>
+
+          <!-- Key Moves Section -->
+          <div class="card-section">
+            <h3 class="section-heading">Featured Moves</h3>
+            <div id="pkmn-moves" class="moves-list">
+              <span class="move-badge">Loading...</span>
+            </div>
+          </div>
+
+          <!-- Base Stats Section -->
+          <div class="card-stats">
+            <div class="stats-header-row">
+              <h3 class="stats-heading">Base Stats</h3>
+              <span id="stats-total-val" class="stats-total">Total: 0</span>
+            </div>
+
+            <div class="stat-row">
+              <span class="stat-name">HP</span>
+              <span id="stat-hp" class="stat-num">0</span>
+              <div class="stat-bar-bg"><div id="bar-hp" class="stat-bar-fill"></div></div>
+            </div>
+
+            <div class="stat-row">
+              <span class="stat-name">Attack</span>
+              <span id="stat-attack" class="stat-num">0</span>
+              <div class="stat-bar-bg"><div id="bar-attack" class="stat-bar-fill"></div></div>
+            </div>
+
+            <div class="stat-row">
+              <span class="stat-name">Defense</span>
+              <span id="stat-defense" class="stat-num">0</span>
+              <div class="stat-bar-bg"><div id="bar-defense" class="stat-bar-fill"></div></div>
+            </div>
+
+            <div class="stat-row">
+              <span class="stat-name">Sp. Atk</span>
+              <span id="stat-spAtk" class="stat-num">0</span>
+              <div class="stat-bar-bg"><div id="bar-spAtk" class="stat-bar-fill"></div></div>
+            </div>
+
+            <div class="stat-row">
+              <span class="stat-name">Sp. Def</span>
+              <span id="stat-spDef" class="stat-num">0</span>
+              <div class="stat-bar-bg"><div id="bar-spDef" class="stat-bar-fill"></div></div>
+            </div>
+
+            <div class="stat-row">
+              <span class="stat-name">Speed</span>
+              <span id="stat-speed" class="stat-num">0</span>
+              <div class="stat-bar-bg"><div id="bar-speed" class="stat-bar-fill"></div></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <footer class="pokedex-footer">
+        <p>Data Source: <a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer">PokéAPI</a></p>
+      </footer>
+    </div>
+  </main>
+
+  <script src="../scripts/pokedex.js"></script>
 </body>
 </html>
