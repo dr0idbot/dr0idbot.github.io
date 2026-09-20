@@ -1,13 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="1">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Site</title>
+    <title>What a site knows about you</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=DM+Sans:wght@400;500;700&family=Lexend:wght@400;500;700&family=Manrope:wght@400;500;700&family=Outfit:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;700&family=Sora:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <h1>Hello World</h1>
+    <div class="header">
+        <h1>What a site knows about you</h1>
+        <p class="subtitle">No permissions needed — this is all publicly available to any website you visit.</p>
+    </div>
+
+    <div class="card">
+        <table class="info-table">
+            <tbody id="info-body">
+                <tr><th>Key</th><td><span class="skeleton"></span></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button class="fab" id="fab-btn" aria-label="Customize" title="Customize appearance">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+    </button>
+
+    <div class="dialog-overlay" id="dialog-overlay">
+        <div class="dialog">
+            <h2>Customize</h2>
+
+            <div class="field">
+                <span class="field-label">Theme</span>
+                <div class="theme-swatches">
+                    <button class="swatch-btn active" data-theme="1" aria-label="Theme 1">
+                        <span style="background:#4169d7"></span>
+                        <span style="background:#d74169"></span>
+                        <span style="background:#69d741"></span>
+                        <span style="background:#a6bdfe"></span>
+                        <span style="background:#fea6bd"></span>
+                        <span class="swatch-label">1</span>
+                    </button>
+                    <button class="swatch-btn" data-theme="2" aria-label="Theme 2">
+                        <span style="background:#54ea91"></span>
+                        <span style="background:#9154ea"></span>
+                        <span style="background:#ea9154"></span>
+                        <span style="background:#b5ffd3"></span>
+                        <span style="background:#d3b5ff"></span>
+                        <span class="swatch-label">2</span>
+                    </button>
+                    <button class="swatch-btn" data-theme="3" aria-label="Theme 3">
+                        <span style="background:#2C8A0A"></span>
+                        <span style="background:#6CDAA5"></span>
+                        <span style="background:#6824C2"></span>
+                        <span style="background:#E0AA52"></span>
+                        <span style="background:#883CBE"></span>
+                        <span class="swatch-label">3</span>
+                    </button>
+                    <button class="swatch-btn" data-theme="4" aria-label="Theme 4">
+                        <span style="background:#94a3b8"></span>
+                        <span style="background:#cbd5e1"></span>
+                        <span style="background:#475569"></span>
+                        <span style="background:#334155"></span>
+                        <span style="background:#f8fafc"></span>
+                        <span class="swatch-label">4</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="field">
+                <span class="field-label">Font size</span>
+                <div class="range-row">
+                    <input type="range" id="font-size-slider" min="0.7" max="1.5" step="0.05" value="1">
+                    <span class="range-value" id="font-size-value">1.00x</span>
+                </div>
+            </div>
+
+            <div class="field">
+                <span class="field-label">Font</span>
+                <div class="font-options" id="font-options">
+                    <button class="font-btn active" data-font="Manrope" style="font-family:'Manrope'">Manrope</button>
+                    <button class="font-btn" data-font="Space Grotesk" style="font-family:'Space Grotesk'">Space Grotesk</button>
+                    <button class="font-btn" data-font="Outfit" style="font-family:'Outfit'">Outfit</button>
+                    <button class="font-btn" data-font="Sora" style="font-family:'Sora'">Sora</button>
+                    <button class="font-btn" data-font="Plus Jakarta Sans" style="font-family:'Plus Jakarta Sans'">Plus Jakarta</button>
+                    <button class="font-btn" data-font="DM Sans" style="font-family:'DM Sans'">DM Sans</button>
+                    <button class="font-btn" data-font="Lexend" style="font-family:'Lexend'">Lexend</button>
+                    <button class="font-btn" data-font="Atkinson Hyperlegible" style="font-family:'Atkinson Hyperlegible'">Atkinson</button>
+                </div>
+            </div>
+
+            <div class="dialog-footer">
+                <button class="btn" id="dialog-close">Close</button>
+                <button class="btn btn-primary" id="dialog-apply">Apply</button>
+            </div>
+        </div>
+    </div>
+
     <script src="index.js"></script>
 </body>
 </html>
