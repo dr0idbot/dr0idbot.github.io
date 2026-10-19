@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-scheme="light" data-sidebar="expanded">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>dr0idspace — Console</title>
+    <meta
+      name="description"
+      content="A themed console with a full Pokédex, powered by PokéAPI."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/tokens.css" />
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/layout.css" />
+    <link rel="stylesheet" href="styles/pages.css" />
+    <script>
+      (function () {
+        var stored = localStorage.getItem("scheme");
+        var scheme =
+          stored ||
+          (window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+        document.documentElement.dataset.scheme = scheme;
+        var side = localStorage.getItem("sidebar");
+        if (side === "collapsed" || side === "expanded") {
+          document.documentElement.dataset.sidebar = side;
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar__head">
+        <span class="brand">
+          <span class="brand__mark" aria-hidden="true"></span>
+          <span class="brand__name">dr0idspace</span>
+        </span>
+        <button
+          class="icon-btn"
+          id="sidebar-toggle"
+          type="button"
+          aria-controls="sidebar"
+          aria-expanded="true"
+          aria-label="Collapse sidebar"
+          title="Collapse sidebar"
+        >
+          <i data-lucide="panel-left-close"></i>
+        </button>
+      </div>
+
+      <nav class="sidebar__nav" aria-label="Primary">
+        <a class="nav-item" href="#/home" data-route="home" title="Home">
+          <i data-lucide="house"></i>
+          <span class="nav-item__label">Home</span>
+        </a>
+        <a
+          class="nav-item"
+          href="#/pokedex"
+          data-route="pokedex"
+          title="Pokédex"
+        >
+          <i data-lucide="gamepad-2"></i>
+          <span class="nav-item__label">Pokédex</span>
+        </a>
+      </nav>
+
+      <div class="sidebar__foot">
+        <div class="foot-controls">
+          <button
+            class="icon-btn"
+            id="scheme-toggle"
+            type="button"
+            aria-label="Switch to dark mode"
+            title="Switch to dark mode"
+          >
+            <i data-lucide="moon"></i>
+          </button>
+          <span class="select-wrap">
+            <select
+              id="theme-select"
+              class="select"
+              aria-label="Theme"
+            ></select>
+            <i class="select__chevron" data-lucide="chevron-down"></i>
+          </span>
+        </div>
+      </div>
+    </aside>
+
+    <button
+      class="menu-btn icon-btn"
+      id="menu-btn"
+      type="button"
+      aria-label="Open menu"
+      aria-controls="sidebar"
+      aria-expanded="false"
+    >
+      <i data-lucide="menu"></i>
+    </button>
+    <div class="scrim" id="scrim" hidden></div>
+
+    <main class="main" id="main" tabindex="-1">
+      <section class="page" data-page="home" id="page-home">
+        <div class="home">
+          <article class="panel panel--feature">
+            <h2 class="panel__title">Pokédex</h2>
+            <p class="panel__body">
+              A random Pokémon with artwork, types, abilities and base stats,
+              straight from PokéAPI.
+            </p>
+            <a class="btn btn--primary" href="#/pokedex">
+              Open Pokédex
+              <i data-lucide="arrow-right"></i>
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section class="page" data-page="pokedex" id="page-pokedex" hidden>
+        <header class="page__head">
+          <div class="page__head-text">
+            <h1 class="page__title">Pokédex</h1>
+            <p class="page__sub">One random Pokémon at a time, from PokéAPI.</p>
+          </div>
+          <div class="page__actions">
+            <button class="btn btn--primary" id="pokedex-random" type="button">
+              <i data-lucide="dices"></i>
+              Random
+            </button>
+            <div class="stepper">
+              <button
+                class="icon-btn"
+                id="pokedex-prev"
+                type="button"
+                aria-label="Previous Pokémon"
+                title="Previous Pokémon"
+              >
+                <i data-lucide="chevron-left"></i>
+              </button>
+              <button
+                class="icon-btn"
+                id="pokedex-next"
+                type="button"
+                aria-label="Next Pokémon"
+                title="Next Pokémon"
+              >
+                <i data-lucide="chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <div class="pokedex" id="pokedex-out" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <script
+      src="https://unpkg.com/lucide@1.59.0/dist/umd/lucide.min.js"
+      defer
+    ></script>
+    <script type="module" src="scripts/main.js"></script>
+  </body>
+</html>

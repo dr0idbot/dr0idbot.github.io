@@ -1,0 +1,108 @@
+/* Sizing */
+:root {
+  --size-sidebar: 264px;
+  --size-sidebar-collapsed: 76px;
+  --size-content-max: 1160px;
+  --size-control: 36px;
+  --size-control-sm: 30px;
+  --size-icon: 18px;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+  --text-xs: 0.6875rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.375rem;
+  --text-xl: clamp(1.5rem, 2.4vw, 1.875rem);
+  --text-2xl: clamp(2.25rem, 5vw, 3.25rem);
+  --leading-tight: 1.1;
+  --leading-snug: 1.35;
+  --leading-normal: 1.6;
+  --tracking-tight: -0.02em;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Palette — defaults = PCB Blue, replaced at runtime from assets/themes/theme.json */
+  --color-1: #00ffff;
+  --color-1-contrast: #000000;
+  --color-2: #001e13;
+  --color-2-contrast: #ffffff;
+  --color-3: #002800;
+  --color-3-contrast: #ffffff;
+  --color-4: #009f64;
+  --color-4-contrast: #000000;
+  --color-5: #88ffe8;
+  --color-5-contrast: #000000;
+  --color-6: #b8d1ec;
+  --color-6-contrast: #000000;
+
+  /* Scheme — light */
+  --bg: color-mix(in oklab, var(--color-1) 5%, #fbfbfa);
+  --surface: color-mix(in oklab, var(--color-1) 3%, #ffffff);
+  --surface-2: color-mix(in oklab, var(--color-1) 7%, #f4f4f2);
+  --surface-3: color-mix(in oklab, var(--color-1) 12%, #eceae6);
+  --line: color-mix(in oklab, var(--color-3) 15%, #e8e7e2);
+  --line-strong: color-mix(in oklab, var(--color-3) 30%, #d6d5cf);
+  --text: color-mix(in oklab, var(--color-3) 45%, #16181b);
+  --text-2: color-mix(in oklab, var(--color-3) 22%, #4c5157);
+  --text-3: color-mix(in oklab, var(--color-3) 14%, #787d84);
+  --accent: var(--color-2);
+  --accent-contrast: var(--color-2-contrast);
+  --accent-hover: color-mix(in oklab, var(--accent) 86%, var(--text));
+  --accent-wash: color-mix(in oklab, var(--accent) 10%, transparent);
+  --accent-line: color-mix(in oklab, var(--accent) 34%, transparent);
+  --highlight: var(--color-4);
+  --focus-ring: var(--color-2);
+  --wash-strength: 16%;
+  --wash-soft: 7%;
+  --scrim: color-mix(in oklab, var(--text) 32%, transparent);
+  --shadow-pop: 0 18px 40px -24px color-mix(in oklab, var(--text) 55%, transparent);
+
+  /* Effects */
+  --speed-fast: 140ms;
+  --speed-med: 240ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+[data-scheme="dark"] {
+  --bg: color-mix(in oklab, var(--color-3) 20%, #090b0e);
+  --surface: color-mix(in oklab, var(--color-3) 13%, #101318);
+  --surface-2: color-mix(in oklab, var(--color-3) 9%, #161a20);
+  --surface-3: color-mix(in oklab, var(--color-3) 16%, #1c2129);
+  --line: color-mix(in oklab, var(--color-3) 28%, #252b34);
+  --line-strong: color-mix(in oklab, var(--color-3) 42%, #333a45);
+  --text: color-mix(in oklab, var(--color-4) 22%, #edf0f4);
+  --text-2: color-mix(in oklab, var(--color-4) 14%, #a7aeb9);
+  --text-3: color-mix(in oklab, var(--color-4) 10%, #767d89);
+  --accent: var(--color-1);
+  --accent-contrast: var(--color-1-contrast);
+  --accent-hover: color-mix(in oklab, var(--accent) 88%, var(--text));
+  --accent-wash: color-mix(in oklab, var(--accent) 14%, transparent);
+  --accent-line: color-mix(in oklab, var(--accent) 38%, transparent);
+  --highlight: var(--color-5);
+  --focus-ring: var(--color-1);
+  --wash-strength: 26%;
+  --wash-soft: 12%;
+  --scrim: color-mix(in oklab, #000000 55%, transparent);
+  --shadow-pop: 0 24px 48px -28px color-mix(in oklab, #000000 85%, transparent);
+}

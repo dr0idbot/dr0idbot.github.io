@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "themes": [
+    {
+      "id": "pcb-blue",
+      "name": "PCB Blue",
+      "type": "analogous",
+      "source": "colorpalette.pro — analogous / diamond, base oklab(81% -0.26 0.04)",
+      "colors": {
+        "color-1": "#00ffff",
+        "color-1-contrast": "#000000",
+        "color-2": "#001e13",
+        "color-2-contrast": "#ffffff",
+        "color-3": "#002800",
+        "color-3-contrast": "#ffffff",
+        "color-4": "#009f64",
+        "color-4-contrast": "#000000",
+        "color-5": "#88ffe8",
+        "color-5-contrast": "#000000",
+        "color-6": "#b8d1ec",
+        "color-6-contrast": "#000000"
+      }
+    },
+    {
+      "id": "teal-red",
+      "name": "Teal & Red",
+      "type": "complementary",
+      "source": "CSS custom properties --color-com-1 … --color-com-6 (oklch)",
+      "colors": {
+        "color-1": "#00dfcc",
+        "color-1-contrast": "#000000",
+        "color-2": "#ee003e",
+        "color-2-contrast": "#ffffff",
+        "color-3": "#002727",
+        "color-3-contrast": "#ffffff",
+        "color-4": "#7fefd9",
+        "color-4-contrast": "#000000",
+        "color-5": "#ff84b5",
+        "color-5-contrast": "#000000",
+        "color-6": "#7d2f3d",
+        "color-6-contrast": "#ffffff"
+      }
+    },
+    {
+      "id": "purple-green",
+      "name": "Purple & Green",
+      "type": "complementary",
+      "source": "CSS custom properties --color-com-1 … --color-com-6 (hex)",
+      "colors": {
+        "color-1": "#8c549c",
+        "color-1-contrast": "#ffffff",
+        "color-2": "#3e9553",
+        "color-2-contrast": "#000000",
+        "color-3": "#350736",
+        "color-3-contrast": "#ffffff",
+        "color-4": "#e1d0ed",
+        "color-4-contrast": "#000000",
+        "color-5": "#a8c193",
+        "color-5-contrast": "#000000",
+        "color-6": "#3f533e",
+        "color-6-contrast": "#ffffff"
+      }
+    }
+  ]
+}
