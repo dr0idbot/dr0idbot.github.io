@@ -13,6 +13,7 @@ const routeFromHash = () => {
 function initSidebar() {
   const body = document.body;
   const toggle = document.getElementById("sidebar-toggle");
+  const brand = document.querySelector(".brand");
   const menuBtn = document.getElementById("menu-btn");
   const scrim = document.getElementById("scrim");
   const mobile = window.matchMedia(MOBILE_QUERY);
@@ -29,6 +30,18 @@ function initSidebar() {
     icon.dataset.lucide = expanded ? "panel-left-close" : "panel-left-open";
     toggle.append(icon);
 
+    if (expanded) {
+      brand.removeAttribute("role");
+      brand.removeAttribute("aria-label");
+      brand.removeAttribute("title");
+      brand.removeAttribute("tabindex");
+    } else {
+      brand.setAttribute("role", "button");
+      brand.setAttribute("aria-label", "Expand sidebar");
+      brand.title = "Expand sidebar";
+      brand.tabIndex = 0;
+    }
+
     menuBtn.setAttribute("aria-expanded", String(expanded && mobile.matches));
     scrim.hidden = !(expanded && mobile.matches);
     renderIcons();
@@ -40,9 +53,22 @@ function initSidebar() {
     sync();
   };
 
+  const activateBrand = () => {
+    if (body.dataset.sidebar === "collapsed") {
+      setState("expanded");
+    }
+  };
+
   toggle.addEventListener("click", () =>
     setState(body.dataset.sidebar === "expanded" ? "collapsed" : "expanded"),
   );
+  brand.addEventListener("click", activateBrand);
+  brand.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      activateBrand();
+    }
+  });
   menuBtn.addEventListener("click", () => setState("expanded"));
   scrim.addEventListener("click", () => setState("collapsed"));
   mobile.addEventListener("change", (event) => {

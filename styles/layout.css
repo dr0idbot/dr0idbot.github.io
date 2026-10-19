@@ -299,6 +299,14 @@ body[data-sidebar="collapsed"] .sidebar__head {
   justify-content: center;
 }
 
+body[data-sidebar="collapsed"] .sidebar__head .icon-btn {
+  display: none;
+}
+
+body[data-sidebar="collapsed"] .brand {
+  cursor: pointer;
+}
+
 body[data-sidebar="collapsed"] .nav-item {
   justify-content: center;
   padding-inline: 0;
